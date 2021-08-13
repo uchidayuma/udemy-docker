@@ -1,0 +1,25 @@
+version: "3"
+services:
+  db:
+    image: mariadb:10.4
+    container_name: "wordpress-db"
+    volumes:
+      - ./db-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    
+  wordpress:
+    image: wordpress:5
+    container_name: "wordpress-wp"
+    volumes:
+      - ./wp-data:/var/www/html
+    ports:
+      - "8000:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306#db→内部IPに変換
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress

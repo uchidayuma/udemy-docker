@@ -1,0 +1,19 @@
+version: '3'
+services:
+  db:
+    image: postgres:11.12
+    container_name: "rails_db"
+    environment:
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - ./data:/var/lib/postgresql/data
+  web:
+    build:
+      context: ./
+      dockerfile: Dockerfile-ruby
+    container_name: "rails_web"
+    command: "rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - ./source:/app
+    ports:
+      - "3000:3000"
