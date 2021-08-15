@@ -1,4 +1,4 @@
-FROM php:7.3.9-apache
+FROM php:7.3.29-apache
 RUN apt-get update \
   && apt-get install -y zlib1g-dev \
   && apt-get install -y zip unzip \
@@ -12,7 +12,7 @@ RUN curl -sS https://getcomposer.org/installer | php \
   && mv composer.phar /usr/local/bin/composer \
   && chmod +x /usr/local/bin/composer
 
-WORKDIR /var/www
+WORKDIR /var/www/html
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER_HOME /composer

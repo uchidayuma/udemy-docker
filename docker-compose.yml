@@ -1,24 +1,25 @@
-version: "3"
+version: '3'
 services:
   db:
-    image: mariadb:10.4
-    container_name: "laravel-db"
-    volumes:
-      - ./data:/var/lib/mysql
-#      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
+    image: mariadb:10.6.4
+    container_name: php-db
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: laravel
       MYSQL_USER: docker
       MYSQL_PASSWORD: docker
       TZ: 'Asia/Tokyo'
+    volumes:
+    - ./data:/var/lib/mysql
+    - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
     ports:
-      - "3306:3306"
+    - 3306:3306
   php:
     build: ./php
-    container_name: "laravel-php"
+    container_name: php-web
     volumes:
       - ./source:/var/www/html
+      - ./php/php.ini:/usr/local/etc/php/conf.d/php.ini
       - ./php/vhost.conf:/etc/apache2/conf-enabled/vhost.conf
     ports:
-      - "8080:80"
+      - 8080:80
